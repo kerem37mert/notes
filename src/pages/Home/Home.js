@@ -1,9 +1,10 @@
 import React from "react";
 import { SafeAreaView } from "react-native";
+import styles from "./Home.style";
 
 const Home = () => {
     return(
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
 
         </SafeAreaView>
     );
