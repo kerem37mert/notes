@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, View, Text } from "react-native";
 import styles from "./Home.style";
 import Note from "../../components/Note";
 import MasonryList from '@react-native-seoul/masonry-list';
-
 
 const Home = () => {
 
