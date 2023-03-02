@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, Text, Button } from "react-native";
 import styles from "./Home.style";
-import Note from "../../components/Note";
 import MasonryList from '@react-native-seoul/masonry-list';
 import { openDatabase } from "react-native-sqlite-storage";
+import Note from "../../components/Note";
+import AbsolutButton from "../../components/AbsoluteButton";
 import { createNotes, addNote } from "../../apis/NotesDB/NotesDB";
 
 const Home = () => {
@@ -55,6 +56,11 @@ const Home = () => {
         );
     }
 
+    const newNote = () => {
+        addNote("dsfhjsdf","şdıfjhdg"); 
+        getNotes();
+    }
+
     return(
         <SafeAreaView style={styles.container}>
             <MasonryList
@@ -64,7 +70,7 @@ const Home = () => {
                 renderItem={renderNote}
                 refreshing={false}
             />
-            <Button title="click" onPress={() => {addNote("dsfhjsdf","şdıfjhdg"); getNotes()}} />
+            <AbsolutButton />
         </SafeAreaView>
     );
 }
