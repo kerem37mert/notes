@@ -35,6 +35,7 @@ const addNote = (title, text) => {
 }
 
 export {
+    db,
     createNotes,
     addNote,
 };

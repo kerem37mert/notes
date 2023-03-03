@@ -2,19 +2,13 @@ import React, { useState, useEffect } from "react";
 import { SafeAreaView, View, Text, Button } from "react-native";
 import styles from "./Home.style";
 import MasonryList from '@react-native-seoul/masonry-list';
-import { openDatabase } from "react-native-sqlite-storage";
 import Note from "../../components/Note";
 import AbsolutButton from "../../components/AbsoluteButton";
-import { createNotes, addNote } from "../../apis/NotesDB/NotesDB";
+import { db, createNotes, addNote } from "../../apis/NotesDB/NotesDB";
 
 const Home = ({navigation}) => {
 
     const [notes, setNotes] = useState([]);
-
-    const db = openDatabase({
-        name: "adssst",
-    });
-    
     
     const getNotes = () => {
         db.transaction(txn => {
@@ -52,14 +46,17 @@ const Home = ({navigation}) => {
 
     const renderNote = ({item}) => {
         return(
-            <Note text={item.id} />
+            <Note 
+                text={item.date} 
+                goDetails={() => navigation.navigate("DetailsPage", {id: item.id}) } 
+            />
         );
     }
 
     const newNote = async () => {
-        addNote("dsfhjsdf","şdıfjhdg"); 
+        addNote("",""); 
         getNotes();
-        navigation.navigate("DetailsPage",{lastId: notes[0].id + 1});
+        navigation.navigate("DetailsPage", {id: notes[0].id + 1});
     }
 
     return(
