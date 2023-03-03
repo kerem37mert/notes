@@ -1,7 +1,7 @@
 import { openDatabase } from "react-native-sqlite-storage";
 
 const db = openDatabase({
-    name: "my",
+    name: "adssst",
 });
 
 const createNotes = () => {

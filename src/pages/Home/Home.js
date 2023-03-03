@@ -7,12 +7,12 @@ import Note from "../../components/Note";
 import AbsolutButton from "../../components/AbsoluteButton";
 import { createNotes, addNote } from "../../apis/NotesDB/NotesDB";
 
-const Home = () => {
+const Home = ({navigation}) => {
 
     const [notes, setNotes] = useState([]);
 
     const db = openDatabase({
-        name: "my",
+        name: "adssst",
     });
     
     
@@ -52,13 +52,14 @@ const Home = () => {
 
     const renderNote = ({item}) => {
         return(
-            <Note text={item.title} />
+            <Note text={item.id} />
         );
     }
 
-    const newNote = () => {
+    const newNote = async () => {
         addNote("dsfhjsdf","şdıfjhdg"); 
         getNotes();
+        navigation.navigate("DetailsPage",{lastId: notes[0].id + 1});
     }
 
     return(
@@ -70,7 +71,7 @@ const Home = () => {
                 renderItem={renderNote}
                 refreshing={false}
             />
-            <AbsolutButton />
+            <AbsolutButton onPress={newNote} />
         </SafeAreaView>
     );
 }
