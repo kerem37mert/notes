@@ -3,6 +3,7 @@ import { SafeAreaView, View, Text, Button } from "react-native";
 import styles from "./Home.style";
 import MasonryList from '@react-native-seoul/masonry-list';
 import Note from "../../components/Note";
+import SearchBar from "../../components/SearchBar";
 import AbsolutButton from "../../components/AbsoluteButton";
 import { db, createNotes, addNote } from "../../apis/NotesDB/NotesDB";
 
@@ -60,6 +61,10 @@ const Home = ({navigation}) => {
         navigation.navigate("DetailsPage", {id: (notes.length == 0) ? 1: notes[0].id + 1});
     }
 
+    const SearchOnChange = () => {
+        
+    }
+
     return(
         <SafeAreaView style={styles.container}>
             <MasonryList
@@ -68,6 +73,7 @@ const Home = ({navigation}) => {
                 showsVerticalScrollIndicator={false}
                 renderItem={renderNote}
                 refreshing={false}
+                ListHeaderComponent={<SearchBar onChange={} />}
             />
             <AbsolutButton onPress={() => { newNote(); }} />
         </SafeAreaView>
