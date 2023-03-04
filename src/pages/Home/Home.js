@@ -47,16 +47,17 @@ const Home = ({navigation}) => {
     const renderNote = ({item}) => {
         return(
             <Note 
-                text={item.date} 
+                item={item} 
                 goDetails={() => navigation.navigate("DetailsPage", {id: item.id}) } 
             />
         );
     }
 
-    const newNote = async () => {
+    const newNote = () => {
         addNote("",""); 
         getNotes();
-        navigation.navigate("DetailsPage", {id: notes[0].id + 1});
+        console.log(notes);
+        navigation.navigate("DetailsPage", {id: (notes.length == 0) ? 1: notes[0].id + 1});
     }
 
     return(
@@ -68,7 +69,7 @@ const Home = ({navigation}) => {
                 renderItem={renderNote}
                 refreshing={false}
             />
-            <AbsolutButton onPress={newNote} />
+            <AbsolutButton onPress={() => { newNote(); }} />
         </SafeAreaView>
     );
 }

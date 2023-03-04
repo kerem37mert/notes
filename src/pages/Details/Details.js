@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { SafeAreaView } from "react-native";
+import moment from "moment";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
 
