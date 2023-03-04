@@ -10,7 +10,9 @@ import { db, createNotes, addNote } from "../../apis/NotesDB/NotesDB";
 const Home = ({navigation}) => {
 
     const [notes, setNotes] = useState([]);
-    
+    const [notesCopy, setNotesCopy] = useState([]);
+    const [searchText, setSearchText] = useState('');
+
     const getNotes = () => {
         db.transaction(txn => {
             txn.executeSql(
@@ -42,8 +44,12 @@ const Home = ({navigation}) => {
     useEffect(() => {
             createNotes();
             getNotes();
+            setNotesCopy(notes);
     }, [notes]);
     
+    useEffect(() => {
+        setNotesCopy(notes);
+    }, [notes]);
 
     const renderNote = ({item}) => {
         return(
@@ -57,23 +63,32 @@ const Home = ({navigation}) => {
     const newNote = () => {
         addNote("",""); 
         getNotes();
-        console.log(notes);
         navigation.navigate("DetailsPage", {id: (notes.length == 0) ? 1: notes[0].id + 1});
     }
 
-    const SearchOnChange = () => {
-        
+    const SearchOnChange = (text) => {
+        setSearchText(text);
     }
+
+    useEffect(() => {
+        if(searchText && notes)
+        {
+            const filter = notes.filter(item => item.title.toUpperCase().indexOf(searchText.toUpperCase()) > -1);
+            setNotesCopy(filter);
+        } else {
+            setNotesCopy(notes);
+        }
+    }, [searchText, notes]);
 
     return(
         <SafeAreaView style={styles.container}>
             <MasonryList
-                data={notes}
+                data={notesCopy}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
                 renderItem={renderNote}
                 refreshing={false}
-                ListHeaderComponent={<SearchBar onChange={} />}
+                ListHeaderComponent={<SearchBar onChange={SearchOnChange} />}
             />
             <AbsolutButton onPress={() => { newNote(); }} />
         </SafeAreaView>

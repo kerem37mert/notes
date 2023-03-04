@@ -6,7 +6,7 @@ const SearchBar = (props) => {
         <TextInput 
             style={styles.textInput}
             placeholder="Notlarınızda Arayın" 
-            onChange={props.onChange}
+            onChangeText={props.onChange}
         />
     );
 }

@@ -19,7 +19,7 @@ const Note = (props) => {
         else if(props.item.title && !props.item.text)
         {
             return(
-                <Text style={styles.text}>{ props.item.title }</Text>
+                <Text style={styles.title}>{ props.item.title }</Text>
             );
         }
         else {
