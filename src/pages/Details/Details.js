@@ -32,8 +32,8 @@ const Details = ({navigation, route}) => {
     const saveTitle = (title) => {
         db.transaction(txn => {
             txn.executeSql(
-                'UPDATE notes SET title=? where id=?',
-                [title, route.params.id],
+                'UPDATE notes SET title=?, date=? where id=?',
+                [title, moment().format("YYYY-MM-DD, h:mm:ss"), route.params.id],
                 (sqlTxn, res) => {
                     console.log("note updated successfully");
                 },
@@ -47,8 +47,8 @@ const Details = ({navigation, route}) => {
     const saveText = (text) => {
         db.transaction(txn => {
             txn.executeSql(
-                'UPDATE notes SET text=? where id=?',
-                [text, route.params.id],
+                'UPDATE notes SET text=?, date=? where id=?',
+                [text, moment().format("YYYY-MM-DD, h:mm:ss"), route.params.id],
                 (sqlTxn, res) => {
                     console.log("note updated successfully");
                 },

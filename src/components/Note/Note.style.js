@@ -10,7 +10,13 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: "gray"
     },
+    title: {
+        color: "#000",
+        fontWeight: "bold",
+        fontSize: 18
+    },
     text: {
         color: "#000",
+        fontSize: 14
     }
 });

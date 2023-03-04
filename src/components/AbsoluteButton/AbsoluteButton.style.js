@@ -2,13 +2,14 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: "red",
         position: "absolute",
         bottom: 30,
         right: 30,
-        borderRadius: 80,
+        borderRadius: 60,
     },
     image: {
-        borderRadius: 80
+        borderRadius: 60,
+        height: 60,
+        width: 60
     }
 });

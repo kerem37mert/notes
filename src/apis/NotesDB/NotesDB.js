@@ -11,7 +11,7 @@ const createNotes = () => {
             'CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(100), text TEXT, date Text)',
             [],
             (sqlTxn, res) => {
-                console.log("table created successfulyy");
+                //console.log("table created successfulyy");
             },
             error => {
                 console.log(error.message);

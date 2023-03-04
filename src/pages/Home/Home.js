@@ -16,7 +16,7 @@ const Home = ({navigation}) => {
                 "SELECT * FROM notes order by date DESC",
                 [],
                 (sqlTxn, res)=> {
-                    console.log("notes retrieved successfully");
+                    //console.log("notes retrieved successfully");
                     let len = res.rows.length;
 
                     if(len > 0)
@@ -41,7 +41,7 @@ const Home = ({navigation}) => {
     useEffect(() => {
             createNotes();
             getNotes();
-    }, []);
+    }, [notes]);
     
 
     const renderNote = ({item}) => {

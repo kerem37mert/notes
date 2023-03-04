@@ -1,13 +1,25 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import styles from "./Note.style";
 
 const Note = (props) => {
 
-    const getItem = () => {
-        if(props.item.title == "")
+    const Item = () => {
+        if(!props.item.title && !props.item.text)
+        {
+            return(
+                <Text style={styles.text}>Henüz bir şeyler not almadınız.</Text>
+            );
+        }
+        else if(!props.item.title && props.item.text)
         {
             return(
                 <Text style={styles.text}>{ props.item.text }</Text>
+            );
+        }
+        else if(props.item.title && !props.item.text)
+        {
+            return(
+                <Text style={styles.text}>{ props.item.title }</Text>
             );
         }
         else {
@@ -22,7 +34,7 @@ const Note = (props) => {
 
     return(
         <TouchableOpacity style={styles.container} onPress={props.goDetails}>
-            <Text style={styles.text}>{ props.item.text }</Text>
+            <Item />
         </TouchableOpacity>
     );
 }
