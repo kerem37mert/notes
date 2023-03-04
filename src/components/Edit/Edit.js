@@ -3,7 +3,7 @@ import styles from "./Edit.style";
 
 const Edit = (props) => {
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {backgroundColor: props.bgColor}]}>
             <TextInput 
                 style={styles.title} 
                 placeholder="Başlık"

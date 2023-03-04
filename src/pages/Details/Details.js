@@ -70,6 +70,7 @@ const Details = ({navigation, route}) => {
                 text={note.text} 
                 saveTitle={saveTitle}
                 saveText={saveText}
+                bgColor={"blue"}
             />
         </SafeAreaView>
     );
