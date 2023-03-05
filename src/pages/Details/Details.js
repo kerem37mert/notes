@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { SafeAreaView } from "react-native";
 import moment from "moment";
+import Modal from "react-native-modal";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
 import BottomBar from "../../components/BottomBar";
-import Modal from "../../components/ColorModal";
+import ColorModal from "../../components/ColorModal";
 import { db } from "../../apis/NotesDB/NotesDB";
 
 const Details = ({navigation, route}) => {
@@ -77,7 +78,17 @@ const Details = ({navigation, route}) => {
             <BottomBar
                 date={note.date}
                 bgColor={note.bgColor}
+                colorOnPress={() => setColorModal(true)}
             />
+            <Modal 
+                isVisible={colorModal}
+                onBackdropPress={() => {setColorModal(false)}}
+                onBackButtonPress={() => {setColorModal(false)}}
+                backdropOpacity={0}
+                
+            >
+                <ColorModal />
+           </Modal>
         </SafeAreaView>
     );
 }

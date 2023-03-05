@@ -5,7 +5,11 @@ const BottomBar = (props) => {
     return(
         <View style={[styles.container, {backgroundColor: props.bgColor}]}>
             <Text style={styles.date}>Son düzenleme: {props.date}</Text>
-            <TouchableOpacity style={[styles.color, {backgroundColor: props.bgColor}]}></TouchableOpacity>
+            <TouchableOpacity 
+                style={[styles.color, {backgroundColor: props.bgColor}]}
+                onPress={props.colorOnPress}
+            >               
+            </TouchableOpacity>
             <TouchableOpacity style={styles.moreButton}>
                 <Image style={styles.more} source={require("../../assets/more.png")}  />
             </TouchableOpacity>    

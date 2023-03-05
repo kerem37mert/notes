@@ -1,10 +1,9 @@
 import { View, TouchableOpacity, Text } from "react-native";
-import Modal from "react-native-modal";
 
-const ColorModal = () => {
+const ColorModal = (props) => {
     return(
-        <View>
-            <Text>ksagdhdfsgh</Text>
+        <View style={StyleSheet.container}>
+            <Text>jıshdguydsgf</Text>
         </View>
     );
 }
