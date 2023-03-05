@@ -4,6 +4,7 @@ import moment from "moment";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
 import BottomBar from "../../components/BottomBar";
+import Modal from "../../components/ColorModal";
 import { db } from "../../apis/NotesDB/NotesDB";
 
 const Details = ({navigation, route}) => {
