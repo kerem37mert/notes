@@ -9,6 +9,7 @@ import { db } from "../../apis/NotesDB/NotesDB";
 const Details = ({navigation, route}) => {
 
     const [note, setNote] = useState({});
+    const [colorModal, setColorModal] = useState(false);
 
     const getNote = () => {
         db.transaction(txn => {
@@ -70,11 +71,11 @@ const Details = ({navigation, route}) => {
                 text={note.text} 
                 saveTitle={saveTitle}
                 saveText={saveText}
-                bgColor={"pink"}
+                bgColor={note.bgColor}
             />
             <BottomBar
                 date={note.date}
-                bgColor={"pink"}
+                bgColor={note.bgColor}
             />
         </SafeAreaView>
     );
