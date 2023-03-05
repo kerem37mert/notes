@@ -33,7 +33,10 @@ const Note = (props) => {
     } 
 
     return(
-        <TouchableOpacity style={styles.container} onPress={props.goDetails}>
+        <TouchableOpacity 
+            style={[styles.container, {backgroundColor: props.item.bgColor}]} 
+            onPress={props.goDetails}
+        >
             <Item />
         </TouchableOpacity>
     );

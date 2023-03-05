@@ -28,7 +28,7 @@ const Home = ({navigation}) => {
                         for(let i=0; i<len; i++)
                         {
                             let item = res.rows.item(i);
-                            result.push({id: item.id, title: item.title, text: item.text, date: item.date});
+                            result.push({id: item.id, title: item.title, text: item.text, bgColor:item.bgColor, date: item.date});
                         }
 
                         setNotes(result);
@@ -55,7 +55,7 @@ const Home = ({navigation}) => {
         return(
             <Note 
                 item={item} 
-                goDetails={() => navigation.navigate("DetailsPage", {id: item.id}) } 
+                goDetails={() => navigation.navigate("DetailsPage", {id: item.id}) }
             />
         );
     }

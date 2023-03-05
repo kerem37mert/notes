@@ -2,13 +2,13 @@ import { openDatabase } from "react-native-sqlite-storage";
 import moment from "moment";
 
 const db = openDatabase({
-    name: "adssssssssdsssssssssssssddwst",
+    name: "adssssssssdssssssssssssssddwst",
 });
 
 const createNotes = () => {
     db.transaction(txn => {
         txn.executeSql(
-            'CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(100), text TEXT, date Text)',
+            'CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(100), text TEXT, bgColor VARCHAR(100), date TEXT)',
             [],
             (sqlTxn, res) => {
                 //console.log("table created successfulyy");
@@ -23,8 +23,8 @@ const createNotes = () => {
 const addNote = (title, text) => {
     db.transaction(txn => {
         txn.executeSql(
-            'INSERT INTO notes (title, text, date) VALUES(?,?,?)',
-            [title, text, moment().format("YYYY-MM-DD, h:mm:ss")],
+            'INSERT INTO notes (title, text, bgColor, date) VALUES(?,?,?,?)',
+            [title, text, "blue", moment().format("YYYY-MM-DD, h:mm:ss")],
             (sqlTxn, res) => {
                 console.log("notes added successfully");
             },
