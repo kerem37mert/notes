@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native";
 import moment from "moment";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
-
+import BottomBar from "../../components/BottomBar";
 import { db } from "../../apis/NotesDB/NotesDB";
 
 const Details = ({navigation, route}) => {
@@ -70,7 +70,11 @@ const Details = ({navigation, route}) => {
                 text={note.text} 
                 saveTitle={saveTitle}
                 saveText={saveText}
-                bgColor={"blue"}
+                bgColor={"pink"}
+            />
+            <BottomBar
+                date={note.date}
+                bgColor={"pink"}
             />
         </SafeAreaView>
     );
