@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { SafeAreaView } from "react-native";
 import moment from "moment";
-import Modal from "react-native-modal";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
 import BottomBar from "../../components/BottomBar";
@@ -11,7 +10,7 @@ import { db } from "../../apis/NotesDB/NotesDB";
 const Details = ({navigation, route}) => {
 
     const [note, setNote] = useState({});
-    const [colorModal, setColorModal] = useState(false);
+    const [colorModal, setColorModal] = useState("none");
 
     const getNote = () => {
         db.transaction(txn => {
@@ -62,6 +61,22 @@ const Details = ({navigation, route}) => {
         });
     }
 
+    const changeColor = (bgColor) => {
+        db.transaction(txn => {
+            txn.executeSql(
+                'UPDATE notes SET bgColor=? where id=?',
+                [bgColor, route.params.id],
+                (sqlTxn, res) => {
+                    console.log("background color updated successfully");
+                    getNote();
+                },
+                error => {
+                    console.log(error.message);
+                }
+            );
+        });
+    }
+
     useEffect(() => {
         getNote();
     }, []);
@@ -78,17 +93,13 @@ const Details = ({navigation, route}) => {
             <BottomBar
                 date={note.date}
                 bgColor={note.bgColor}
-                colorOnPress={() => setColorModal(true)}
+                colorOnPress={() => setColorModal("flex")}
             />
-            <Modal 
-                isVisible={colorModal}
-                onBackdropPress={() => {setColorModal(false)}}
-                onBackButtonPress={() => {setColorModal(false)}}
-                backdropOpacity={0}
-                
-            >
-                <ColorModal />
-           </Modal>
+            <ColorModal
+                bgColor={note.bgColor}
+                changeColor={changeColor}
+                display={colorModal}
+            />
         </SafeAreaView>
     );
 }
