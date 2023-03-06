@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { SafeAreaView } from "react-native";
+import React, { useState, useEffect} from "react";
+import { SafeAreaView, BackHandler, Alert } from "react-native";
 import moment from "moment";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
@@ -80,6 +80,27 @@ const Details = ({navigation, route}) => {
     useEffect(() => {
         getNote();
     }, []);
+
+    useEffect(() => {
+        const backAction = () => {
+          if(colorModal == "flex")
+          {
+            setColorModal("none");
+          }
+          else{
+            navigation.goBack();
+          }
+          return true;
+        };
+    
+        const backHandler = BackHandler.addEventListener(
+          'hardwareBackPress',
+          backAction,
+        );
+    
+            return () => backHandler.remove();
+        }, []);
+    
 
     return(
         <SafeAreaView style={styles.container}>

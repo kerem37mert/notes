@@ -5,9 +5,7 @@ export default StyleSheet.create({
         position: "absolute",
         bottom: 0,
         width: Dimensions.get("window").width,
-        padding: 20,
-    
-        
+        padding: 20,    
     },
     title: {
         color: "#000",

@@ -63,6 +63,7 @@ const ColorModal = (props) => {
                 data={colors} 
                 renderItem={renderColor} 
                 horizontal={true}
+                showsHorizontalScrollIndicator={false}
             />
         </View>
     );
