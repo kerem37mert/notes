@@ -13,7 +13,7 @@ import { db } from "../../apis/NotesDB/NotesDB";
 const Details = ({navigation, route}) => {
 
     const [note, setNote] = useState({});
-    const [colorModal, setColorModal] = useState("none");
+    const [colorModal, setColorModal] = useState(false);
     const [moreModal, setMoreModal] = useState(false);
 
     const getNote = () => {
@@ -79,13 +79,6 @@ const Details = ({navigation, route}) => {
                 }
             );
         });
-    }
-
-    const closeButton = () => {
-        if(colorModal == "flex")
-        {
-            setColorModal("none");
-        }
     }
 
     const deleteNote = () => {
@@ -172,19 +165,30 @@ const Details = ({navigation, route}) => {
             <BottomBar
                 date={note.date}
                 bgColor={note.bgColor}
-                colorOnPress={() => setColorModal("flex")}
+                colorOnPress={() => setColorModal(true)}
                 moreOnPress={() => setMoreModal(true)}
             />
-            <ColorModal
-                bgColor={note.bgColor}
-                changeColor={changeColor}
-                display={colorModal}
-                closeButton={closeButton}
-            />
+             <Modal
+                style={{justifyContent: "flex-end", margin: 0}}
+                isVisible={colorModal}
+                onBackdropPress={() => setColorModal(false)}
+                onBackButtonPress={() => setColorModal(false)}
+                animationIn="bounceInUp"
+                animationOut="bounceOutDown"
+                animationInTiming={900}
+                animationOutTiming={500}
+                backdropTransitionInTiming={1000}
+                backdropTransitionOutTiming={500}
+            >
+                <ColorModal 
+                    bgColor={note.bgColor} 
+                    changeColor={changeColor}
+                />
+            </Modal>
             <Modal
                 style={{justifyContent: "flex-end", margin: 0}}
                 isVisible={moreModal}
-                onBackdropPress={()=> setMoreModal(false)}
+                onBackdropPress={() => setMoreModal(false)}
                 onBackButtonPress={() => setMoreModal(false)}
                 animationIn="bounceInUp"
                 animationOut="bounceOutDown"

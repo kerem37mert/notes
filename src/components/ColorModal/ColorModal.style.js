@@ -2,10 +2,7 @@ import { StyleSheet, Dimensions } from "react-native";
 
 export default StyleSheet.create({
     container: {
-        position: "absolute",
-        bottom: 0,
-        width: Dimensions.get("window").width,
-        padding: 20,    
+        padding: 20
     },
     titleContainer: {
         flexDirection: "row",
