@@ -1,17 +1,20 @@
 import React, { useState, useEffect} from "react";
-import { SafeAreaView, FlatList, BackHandler } from "react-native";
+import { SafeAreaView, FlatList, BackHandler, Modal } from "react-native";
 import moment from "moment";
+import Modal from "react-native-modal";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
 import TopBar from "../../components/TopBar";
 import BottomBar from "../../components/BottomBar";
 import ColorModal from "../../components/ColorModal";
+import MoreModal from "../../components/MoreModal";
 import { db } from "../../apis/NotesDB/NotesDB";
 
 const Details = ({navigation, route}) => {
 
     const [note, setNote] = useState({});
     const [colorModal, setColorModal] = useState("none");
+    const [moreModal, setMoreModal] = useState(false);
 
     const getNote = () => {
         db.transaction(txn => {
@@ -150,6 +153,11 @@ const Details = ({navigation, route}) => {
                 display={colorModal}
                 closeButton={closeButton}
             />
+            <Modal
+                isVisible={true}
+            >
+                <MoreModal />
+            </Modal>
         </SafeAreaView>
     );
 }
