@@ -7,6 +7,15 @@ export default StyleSheet.create({
         width: Dimensions.get("window").width,
         padding: 20,    
     },
+    titleContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    close: {
+        color: "#000",
+        fontSize: 16,
+        marginBottom: 20
+    },
     title: {
         color: "#000",
         fontSize: 16,

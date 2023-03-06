@@ -77,6 +77,13 @@ const Details = ({navigation, route}) => {
         });
     }
 
+    const closeButton = () => {
+        if(colorModal == "flex")
+        {
+            setColorModal("none");
+        }
+    }
+
     useEffect(() => {
         getNote();
     }, []);
@@ -86,9 +93,6 @@ const Details = ({navigation, route}) => {
           if(colorModal == "flex")
           {
             setColorModal("none");
-          }
-          else{
-            navigation.goBack();
           }
           return true;
         };
@@ -120,6 +124,7 @@ const Details = ({navigation, route}) => {
                 bgColor={note.bgColor}
                 changeColor={changeColor}
                 display={colorModal}
+                closeButton={closeButton}
             />
         </SafeAreaView>
     );

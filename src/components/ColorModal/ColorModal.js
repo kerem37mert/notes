@@ -58,7 +58,12 @@ const ColorModal = (props) => {
 
     return(
         <View style={[styles.container, {backgroundColor: props.bgColor, display: props.display}]}>
-            <Text style={styles.title}>Renk</Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>Renk</Text>
+                <TouchableOpacity onPress={props.closeButton}>
+                   <Text style={styles.close}>X</Text> 
+                </TouchableOpacity>
+            </View>
             <FlatList 
                 data={colors} 
                 renderItem={renderColor} 
