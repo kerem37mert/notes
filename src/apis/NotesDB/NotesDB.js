@@ -24,7 +24,7 @@ const addNote = (title, text) => {
     db.transaction(txn => {
         txn.executeSql(
             'INSERT INTO notes (title, text, bgColor, date) VALUES(?,?,?,?)',
-            [title, text, "blue", moment().format("YYYY-MM-DD, h:mm:ss")],
+            [title, text, "white", moment().format("YYYY-MM-DD, h:mm:ss")],
             (sqlTxn, res) => {
                 console.log("notes added successfully");
             },

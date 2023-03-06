@@ -1,8 +1,9 @@
 import React, { useState, useEffect} from "react";
-import { SafeAreaView, BackHandler, Alert } from "react-native";
+import { SafeAreaView, FlatList, BackHandler } from "react-native";
 import moment from "moment";
 import styles from "./Details.styles";
 import Edit from "../../components/Edit";
+import TopBar from "../../components/TopBar";
 import BottomBar from "../../components/BottomBar";
 import ColorModal from "../../components/ColorModal";
 import { db } from "../../apis/NotesDB/NotesDB";
@@ -84,6 +85,27 @@ const Details = ({navigation, route}) => {
         }
     }
 
+    const renderTopBar = () => {
+        return(
+            <TopBar 
+                goBack={()=>navigation.goBack()}
+                bgColor={note.bgColor}
+            />
+        );
+    }
+
+    const renderEdit = () => {
+        return(
+            <Edit 
+                title={note.title} 
+                text={note.text} 
+                saveTitle={saveTitle}
+                saveText={saveText}
+                bgColor={note.bgColor}
+            />
+        );
+    }
+
     useEffect(() => {
         getNote();
     }, []);
@@ -94,6 +116,9 @@ const Details = ({navigation, route}) => {
           {
             setColorModal("none");
           }
+          else if(colorModal == "none"){
+            navigation.goBack();
+          }
           return true;
         };
     
@@ -103,17 +128,16 @@ const Details = ({navigation, route}) => {
         );
     
             return () => backHandler.remove();
-        }, []);
+        }, [colorModal]);
     
 
     return(
         <SafeAreaView style={styles.container}>
-            <Edit 
-                title={note.title} 
-                text={note.text} 
-                saveTitle={saveTitle}
-                saveText={saveText}
-                bgColor={note.bgColor}
+            <FlatList 
+                style={{backgroundColor: note.bgColor}}
+                ListHeaderComponent={renderTopBar}
+                data={[1]}
+                renderItem={renderEdit}
             />
             <BottomBar
                 date={note.date}

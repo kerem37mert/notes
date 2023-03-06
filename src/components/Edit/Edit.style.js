@@ -7,9 +7,11 @@ export default StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "blue",
     },
     text: {
-        fontSize: 16
+        fontSize: 16,
+        color: "#000"
     }
 });

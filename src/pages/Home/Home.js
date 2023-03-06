@@ -64,6 +64,7 @@ const Home = ({navigation}) => {
         addNote("",""); 
         getNotes();
         navigation.navigate("DetailsPage", {id: (notes.length == 0) ? 1: notes[0].id + 1});
+        setSearchText("");
     }
 
     const SearchOnChange = (text) => {
@@ -73,7 +74,7 @@ const Home = ({navigation}) => {
     useEffect(() => {
         if(searchText && notes)
         {
-            const filter = notes.filter(item => item.title.toUpperCase().indexOf(searchText.toUpperCase()) > -1);
+            const filter = notes.filter(item => item.title.toUpperCase().indexOf(searchText.toUpperCase()) > -1 || item.text.toUpperCase().indexOf(searchText.toUpperCase()) > -1);
             setNotesCopy(filter);
         } else {
             setNotesCopy(notes);
@@ -88,7 +89,7 @@ const Home = ({navigation}) => {
                 showsVerticalScrollIndicator={false}
                 renderItem={renderNote}
                 refreshing={false}
-                ListHeaderComponent={<SearchBar onChange={SearchOnChange} />}
+                ListHeaderComponent={<SearchBar onChange={SearchOnChange} defaultVal={searchText} />}
             />
             <AbsolutButton onPress={() => { newNote(); }} />
         </SafeAreaView>
