@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { SafeAreaView, FlatList, BackHandler, Modal } from "react-native";
+import { SafeAreaView, FlatList, BackHandler, Alert } from "react-native";
 import moment from "moment";
 import Modal from "react-native-modal";
 import styles from "./Details.styles";
@@ -88,6 +88,33 @@ const Details = ({navigation, route}) => {
         }
     }
 
+    const deleteNote = () => {
+        db.transaction(txn => {
+            txn.executeSql(
+                'DELETE FROM notes where id=?',
+                [note.id],
+                (sqlTxn, res) => {
+                    console.log("note deleted successfully");
+                    navigation.goBack();
+                },
+                error => {
+                    console.log(error.message);
+                }
+            );
+        })
+    }
+
+    const deleteOnPress = () => {
+        Alert.alert('Uyarı!', 'Bu notu silmek istediğinize emin misiniz?', [
+            {
+              text: 'İptal',
+              onPress: () => setMoreModal(false),
+              style: 'cancel',
+            },
+            {text: 'Sil', onPress: () => deleteNote()},
+        ]);
+    }
+
     const renderTopBar = () => {
         return(
             <TopBar 
@@ -146,6 +173,7 @@ const Details = ({navigation, route}) => {
                 date={note.date}
                 bgColor={note.bgColor}
                 colorOnPress={() => setColorModal("flex")}
+                moreOnPress={() => setMoreModal(true)}
             />
             <ColorModal
                 bgColor={note.bgColor}
@@ -154,9 +182,21 @@ const Details = ({navigation, route}) => {
                 closeButton={closeButton}
             />
             <Modal
-                isVisible={true}
+                style={{justifyContent: "flex-end", margin: 0}}
+                isVisible={moreModal}
+                onBackdropPress={()=> setMoreModal(false)}
+                onBackButtonPress={() => setMoreModal(false)}
+                animationIn="bounceInUp"
+                animationOut="bounceOutDown"
+                animationInTiming={900}
+                animationOutTiming={500}
+                backdropTransitionInTiming={1000}
+                backdropTransitionOutTiming={500}
             >
-                <MoreModal />
+                <MoreModal 
+                    bgColor={note.bgColor} 
+                    deleteOnPress={deleteOnPress}
+                />
             </Modal>
         </SafeAreaView>
     );

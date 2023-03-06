@@ -10,7 +10,10 @@ const BottomBar = (props) => {
                 onPress={props.colorOnPress}
             >               
             </TouchableOpacity>
-            <TouchableOpacity style={styles.moreButton}>
+            <TouchableOpacity 
+                style={styles.moreButton}
+                onPress={props.moreOnPress}
+            >
                 <Image style={styles.more} source={require("../../assets/more.png")}  />
             </TouchableOpacity>    
         </View>
