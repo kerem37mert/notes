@@ -88,7 +88,10 @@ const Details = ({navigation, route}) => {
                 [note.id],
                 (sqlTxn, res) => {
                     console.log("note deleted successfully");
-                    navigation.goBack();
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'HomePage' }],
+                    });
                 },
                 error => {
                     console.log(error.message);
@@ -108,7 +111,7 @@ const Details = ({navigation, route}) => {
         ]);
     }
 
-    const renderTopBar = () => {
+    const RenderTopBar = () => {
         return(
             <TopBar 
                 goBack={()=>navigation.goBack()}
@@ -117,7 +120,7 @@ const Details = ({navigation, route}) => {
         );
     }
 
-    const renderEdit = () => {
+    const RenderEdit = () => {
         return(
             <Edit 
                 title={note.title} 
@@ -158,9 +161,9 @@ const Details = ({navigation, route}) => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 style={{backgroundColor: note.bgColor}}
-                ListHeaderComponent={renderTopBar}
+                ListHeaderComponent={RenderTopBar}
                 data={[1]}
-                renderItem={renderEdit}
+                renderItem={RenderEdit}
             />
             <BottomBar
                 date={note.date}

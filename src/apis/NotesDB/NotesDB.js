@@ -2,7 +2,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 import moment from "moment";
 
 const db = openDatabase({
-    name: "adssssssssdssssssssssssssddwst",
+    name: "app",
 });
 
 const createNotes = () => {
@@ -24,7 +24,7 @@ const addNote = (title, text) => {
     db.transaction(txn => {
         txn.executeSql(
             'INSERT INTO notes (title, text, bgColor, date) VALUES(?,?,?,?)',
-            [title, text, "white", moment().format("YYYY-MM-DD, h:mm:ss")],
+            [title, text, "#fff", moment().format("YYYY-MM-DD, h:mm:ss")],
             (sqlTxn, res) => {
                 console.log("notes added successfully");
             },
