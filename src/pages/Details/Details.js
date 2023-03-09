@@ -161,9 +161,9 @@ const Details = ({navigation, route}) => {
         <SafeAreaView style={styles.container}>
             <FlatList 
                 style={{backgroundColor: note.bgColor}}
-                data={[1]} 
-                renderItem={() => <RenderEdit />}
-                ListHeaderComponent={<RenderTopBar />}
+                ListHeaderComponent={RenderTopBar}
+                data={[1]}
+                renderItem={RenderEdit}
             />
             <BottomBar
                 date={note.date}
