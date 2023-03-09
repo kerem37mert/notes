@@ -2,7 +2,7 @@ import { openDatabase } from "react-native-sqlite-storage";
 import moment from "moment";
 
 const db = openDatabase({
-    name: "adssssssssdssssssssssssssddwst",
+    name: "app",
 });
 
 const createNotes = () => {
