@@ -4,6 +4,7 @@ import styles from "./Home.style";
 import MasonryList from '@react-native-seoul/masonry-list';
 import Note from "../../components/Note";
 import SearchBar from "../../components/SearchBar";
+import MultipleBar from "../../components/MultipleBar";
 import AbsolutButton from "../../components/AbsoluteButton";
 import { db, createNotes, addNote } from "../../apis/NotesDB/NotesDB";
 
@@ -83,6 +84,7 @@ const Home = ({navigation}) => {
 
     return(
         <SafeAreaView style={styles.container}>
+            <MultipleBar />
             <MasonryList
                 data={notesCopy}
                 numColumns={2}
