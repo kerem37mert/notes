@@ -1,19 +1,19 @@
 import { View, TouchableOpacity, Text, Image } from "react-native";
 import styles from "./Multiple.style";
 
-const MultipleBar = () => {
+const MultipleBar = (props) => {
     return(
-        <View style={styles.container}>
+        <View style={[styles.container, {display: props.visible}]}>
             <View style={styles.cancelTextContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={props.close}>
                     <Image
                         style={styles.cancelButton} 
                         source={require("../../assets/cancel.png")} 
                     /> 
                 </TouchableOpacity>
-                <Text style={styles.text}>5 </Text>
+                <Text style={styles.text}>{props.number}</Text>
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.delete}>
                 <Image
                     style={styles.deleteButton} 
                     source={require("../../assets/deleteButton.png")} 

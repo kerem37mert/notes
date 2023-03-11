@@ -34,8 +34,9 @@ const Note = (props) => {
 
     return(
         <TouchableOpacity 
-            style={[styles.container, {backgroundColor: props.item.bgColor}]} 
+            style={[props.isSelected ? styles.selectedContainer : styles.container, {backgroundColor: props.item.bgColor}]} 
             onPress={props.goDetails}
+            onLongPress={props.onLongPress}
         >
             <Item />
         </TouchableOpacity>

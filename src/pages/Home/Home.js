@@ -13,6 +13,43 @@ const Home = ({navigation}) => {
     const [notes, setNotes] = useState([]);
     const [notesCopy, setNotesCopy] = useState([]);
     const [searchText, setSearchText] = useState('');
+    const [multipleBar, setMultipleBar] = useState("none");
+    const [selectedItems, setSelectedItems] = useState([]);
+
+    const selected = (id) => {
+        setMultipleBar("flex");
+        if (selectedItems.includes(id)) {
+            setSelectedItems(selectedItems.filter(itemId => itemId !== id));
+
+        } else {
+            setSelectedItems([...selectedItems, id]);
+        }
+    }
+
+    const deleteSelectedItems = () => {
+        selectedItems.forEach(itemId => {
+           db.transaction(txn => {
+                txn.executeSql(
+                    "DELETE FROM notes where id=?",
+                    [itemId],
+                    (sqlTxn, res)=> {
+                        console.log("notes deleted successfully");
+                    },
+                    error => {
+                        console.log(error.message);
+                    }
+                );
+           });
+        });
+        setSelectedItems([]);
+        setMultipleBar("none");
+    };
+
+    
+    const closeMultipleBar = () => {
+        setSelectedItems([]);
+        setMultipleBar("none");
+    }
 
     const getNotes = () => {
         db.transaction(txn => {
@@ -57,6 +94,8 @@ const Home = ({navigation}) => {
             <Note 
                 item={item} 
                 goDetails={() => navigation.navigate("DetailsPage", {id: item.id}) }
+                onLongPress={() => selected(item.id)}
+                isSelected={selectedItems.includes(item.id)}
             />
         );
     }
@@ -84,7 +123,12 @@ const Home = ({navigation}) => {
 
     return(
         <SafeAreaView style={styles.container}>
-            <MultipleBar />
+            <MultipleBar
+                visible={multipleBar} 
+                close={closeMultipleBar}
+                number={selectedItems.length}
+                delete={deleteSelectedItems}
+            />
             <MasonryList
                 data={notesCopy}
                 numColumns={2}
