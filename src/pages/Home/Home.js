@@ -24,26 +24,66 @@ const Home = ({navigation}) => {
         } else {
             setSelectedItems([...selectedItems, id]);
         }
+
+         // Eğer seçili öğe yoksa, multipleBarı kapalı yap
+        if (selectedItems.length === 1 && selectedItems.includes(id)) {
+            closeMultipleBar();
+        }
+    }
+
+    //Note Onpress
+    const noteOnPress = (item) => {
+        if(multipleBar == "none"){
+            //MultiBar açıksa detaile git
+            navigation.navigate("DetailsPage", {id: item.id})
+        }
+        else{
+            //multibar kapalıysa selected işlemini yap
+            selected(item.id);
+        }
     }
 
     const deleteSelectedItems = () => {
+        let itemsLeft = [...notes];
         selectedItems.forEach(itemId => {
-           db.transaction(txn => {
-                txn.executeSql(
-                    "DELETE FROM notes where id=?",
-                    [itemId],
-                    (sqlTxn, res)=> {
-                        console.log("notes deleted successfully");
-                    },
-                    error => {
-                        console.log(error.message);
-                    }
-                );
-           });
+          db.transaction(txn => {
+            txn.executeSql(
+              "DELETE FROM notes where id=?",
+              [itemId],
+              (sqlTxn, res)=> {
+                console.log("notes deleted successfully");
+                itemsLeft = itemsLeft.filter(item => item.id !== itemId);
+                if (itemsLeft.length === 0) {
+                  setSelectedItems([]);
+                  setMultipleBar("none");
+                }
+                setNotesCopy(itemsLeft); // Notları güncelle
+              },
+              error => {
+                console.log(error.message);
+              }
+            );
+          });
         });
-        setSelectedItems([]);
-        setMultipleBar("none");
+        setNotes(itemsLeft);
     };
+      
+
+    useEffect(() => {
+        setNotesCopy([]);
+        getNotes();
+    }, []);
+    
+    useEffect(() => {
+        if(searchText && notes)
+        {
+            const filter = notes.filter(item => item.title.toUpperCase().indexOf(searchText.toUpperCase()) > -1 || item.text.toUpperCase().indexOf(searchText.toUpperCase()) > -1);
+            setNotesCopy(filter);
+        } else {
+            setNotesCopy(notes);
+        }
+    }, [searchText, notes]);
+    
 
     
     const closeMultipleBar = () => {
@@ -80,9 +120,9 @@ const Home = ({navigation}) => {
     }
 
     useEffect(() => {
-            createNotes();
-            getNotes();
-            setNotesCopy(notes);
+        createNotes();
+        getNotes();
+        setNotesCopy(notes);
     }, [notes]);
     
     useEffect(() => {
@@ -93,7 +133,7 @@ const Home = ({navigation}) => {
         return(
             <Note 
                 item={item} 
-                goDetails={() => navigation.navigate("DetailsPage", {id: item.id}) }
+                goDetails={() => noteOnPress(item)}
                 onLongPress={() => selected(item.id)}
                 isSelected={selectedItems.includes(item.id)}
             />
