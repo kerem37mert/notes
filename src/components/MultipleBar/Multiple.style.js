@@ -19,7 +19,8 @@ export default StyleSheet.create({
     text: {
         fontWeight: "bold",
         fontSize: 20,
-        paddingLeft: 20
+        paddingLeft: 20,
+        color: "#000"
     },
     deleteButton: {
         height: 30,
