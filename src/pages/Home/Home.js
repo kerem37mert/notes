@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, Alert } from "react-native";
 import styles from "./Home.style";
 import MasonryList from '@react-native-seoul/masonry-list';
 import Note from "../../components/Note";
@@ -44,29 +44,41 @@ const Home = ({navigation}) => {
     }
 
     const deleteSelectedItems = () => {
-        let itemsLeft = [...notes];
-        selectedItems.forEach(itemId => {
-          db.transaction(txn => {
-            txn.executeSql(
-              "DELETE FROM notes where id=?",
-              [itemId],
-              (sqlTxn, res)=> {
-                console.log("notes deleted successfully");
-                itemsLeft = itemsLeft.filter(item => item.id !== itemId);
-                if(itemsLeft.length === 0 || selectedItems.length === itemsLeft.length) {
-                  setSelectedItems([]);
-                  setMultipleBar("none");
+        Alert.alert('Uyarı!', 'Bu notu silmek istediğinize emin misiniz?', [
+            {
+              text: 'İptal',
+              onPress: () => setMultipleBar(),
+              style: 'cancel',
+            },
+            {
+                text: 'Sil', 
+                onPress: () => {
+                    let itemsLeft = [...notes];
+                    selectedItems.forEach(itemId => {
+                      db.transaction(txn => {
+                        txn.executeSql(
+                          "DELETE FROM notes where id=?",
+                          [itemId],
+                          (sqlTxn, res)=> {
+                            console.log("notes deleted successfully");
+                            itemsLeft = itemsLeft.filter(item => item.id !== itemId);
+                            if(itemsLeft.length === 0 || selectedItems.length === itemsLeft.length) {
+                              setSelectedItems([]);
+                              setMultipleBar("none");
+                            }
+                            setNotesCopy(itemsLeft); // Notları güncelle
+                          },
+                          error => {
+                            console.log(error.message);
+                          }
+                        );
+                      });
+                    });
+                    setNotes(itemsLeft);
                 }
-                setNotesCopy(itemsLeft); // Notları güncelle
-              },
-              error => {
-                console.log(error.message);
-              }
-            );
-          });
-        });
-        setNotes(itemsLeft);
-    };
+            },
+        ]);
+    }
       
 
     useEffect(() => {
