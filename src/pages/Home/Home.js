@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Alert } from "react-native";
+import { SafeAreaView } from "react-native";
 import styles from "./Home.style";
 import MasonryList from '@react-native-seoul/masonry-list';
 import Note from "../../components/Note";
@@ -53,7 +53,7 @@ const Home = ({navigation}) => {
               (sqlTxn, res)=> {
                 console.log("notes deleted successfully");
                 itemsLeft = itemsLeft.filter(item => item.id !== itemId);
-                if (itemsLeft.length === 0) {
+                if(itemsLeft.length === 0 || selectedItems.length === itemsLeft.length) {
                   setSelectedItems([]);
                   setMultipleBar("none");
                 }
