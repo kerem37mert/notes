@@ -160,7 +160,7 @@ const Details = ({navigation, route}) => {
     return(
         <SafeAreaView style={styles.container}>
             <FlatList 
-                style={{backgroundColor: note.bgColor}}
+                style={{backgroundColor: note.bgColor ? note.bgColor : note.bgColor}}
                 ListHeaderComponent={RenderTopBar}
                 data={[1]}
                 renderItem={RenderEdit}

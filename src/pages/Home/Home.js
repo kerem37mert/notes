@@ -44,7 +44,7 @@ const Home = ({navigation}) => {
     }
 
     const deleteSelectedItems = () => {
-        Alert.alert('Uyarı!', 'Bu notu silmek istediğinize emin misiniz?', [
+        Alert.alert('Uyarı!', 'Seçtiğiniz notları silmek istediğinize emin misiniz?', [
             {
               text: 'İptal',
               onPress: () => setMultipleBar(),
